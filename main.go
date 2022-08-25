@@ -82,7 +82,7 @@ func main() {
 		game.frame++
 	}
 }
-
+// From snake-life repo
 func newGame() *game {
 	rand.Seed(time.Now().UnixNano())
 	game := &game{
@@ -91,7 +91,7 @@ func newGame() *game {
 
 	return game
 }
-
+// From snake-life repo
 func randomPosition() vector {
 	width, height := getSize()
 	x := rand.Intn(width) + 4
@@ -101,9 +101,6 @@ func randomPosition() vector {
 }
 
 
-// Idk just felt boring to wrtite the tile object...
-// rather create a function that handles it.
-// There's probably a better way of doing this.
 func makeTile (char string, pos vector) tile {
 	return tile { 
 		char: char,

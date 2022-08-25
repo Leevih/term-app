@@ -46,10 +46,9 @@ func p(t tile){
 // random pos and random size
 func newRectangle(char string, fill string) *rectangle{
 	var pos = randomPosition()
-	x:= rand.Intn(20) + 1
 	// TODO: Check for wall collisions
 	var v = vector {
-		x: x,
+		x: rand.Intn(20) + 1,
 		y: rand.Intn(12) + 2,
 
 	}

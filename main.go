@@ -22,10 +22,12 @@ type game struct {
 	score  int
 	maxPos vector
 	frame int
+	rectangles []rectangle
 }
 
 
 type rectangle struct {
+	id string
 	char string
 	fill string
 	pos vector
@@ -39,7 +41,7 @@ type rectangle struct {
 func p(t tile){
 	moveCursor(t.pos)
 	draw(t.char)
-	render()
+	//render()
 }
 
 // Used to generate a rectangle object with... 
@@ -52,7 +54,11 @@ func newRectangle(char string, fill string) *rectangle{
 		y: rand.Intn(12) + 2,
 
 	}
+	// Look trough rectangles to avoid collision
+	// game.rectangles 
+
 	return &rectangle{
+		id: strconv.Itoa(rand.Intn(20) * rand.Intn(10)),
 		pos: pos,
 		size: v,
 		char: char,
@@ -73,10 +79,10 @@ func main() {
 
 		// This clears the terminal window
 		// clear()
-		game.placeRectangle()
-		game.placeRectangle()
-		game.placeRectangle()
-		game.placeRectangle()
+		
+		var r = newRectangle("#", strconv.Itoa(game.frame))
+		placeRectangle(r)
+		game.rectangles = append(game.rectangles, *r)
 		// I use frames only as filler texture...
 		// for rectangles
 		game.frame++
@@ -141,6 +147,7 @@ func makeRectangle(pos vector, width int, height int, char string){
 		wait()
 		b++
 	}
+	render()
 	c := 0
 	initX := buildingXwallStart + width
 	for c < width {	
@@ -186,11 +193,9 @@ func fillRectangle(r *rectangle) {
 		
 	}
 }
-func (g *game) placeRectangle() {
-	// clear()
-	building := newRectangle("#", strconv.Itoa(g.frame))
-	makeRectangle(building.pos, building.size.x, building.size.y, building.char)
-	fillRectangle(building)
+func placeRectangle(r *rectangle) {
+	makeRectangle(r.pos, r.size.x, r.size.y, r.char)
+	fillRectangle(r)
 }
 
 // From snake-life repo
@@ -215,7 +220,7 @@ func (g *game) over() {
 	showCursor()
 
 	moveCursor(vector{x:1, y:1})
-	draw("game over. the snake ate " + strconv.Itoa(g.score) + " mice.")
+	draw("rect len " + strconv.Itoa(len(g.rectangles)) + " a.")
 
 	render()
 

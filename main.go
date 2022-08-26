@@ -120,6 +120,9 @@ func wait(){
 	time.Sleep(time.Millisecond * 1)
 }
 
+// This wack ass function shouldn't have 4x for loops that draw directly to the screen...
+// instead it should create an array of tiles, that a rendering function walks trough...
+// at the renering step. 
 func makeRectangle(pos vector, width int, height int, char string){
 	// Each loop is used to draw one of the outlines in the rectangle.
 
